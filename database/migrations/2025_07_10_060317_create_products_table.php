@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->decimal('price', 8, 2);
             $table->text('description')->nullable();
-            $table->text('imageurl')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

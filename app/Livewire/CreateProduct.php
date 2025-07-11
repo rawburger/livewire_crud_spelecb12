@@ -4,27 +4,20 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class CreateProduct extends Component
 {
-    use WithPagination;
+    use WithFileUploads;
 
-    public $code = 0;
+    public $code = '';
     public $name = '';
     public $price = 0.00;
     public $quantity = 0;
     public $description = '';
-    public $image;
+    public $image = null;
 
-    public function render()
-    {
-        return view('livewire.create-product', [
-            'products' => Product::paginate(10),
-        ]);
-    }
-
-    public function store() {
+    public function save() {
         $validated = $this->validate([
             'code' => 'required|string|max:255|unique:products,code',
             'name' => 'required|string|max:255',
@@ -34,15 +27,23 @@ class CreateProduct extends Component
             'image' => 'nullable|image|max:2048', // Max 2MB
         ]);
 
+        $imageurl = $this->image->store('images');
+
         Product::create(
             [
-                'prodCode' => $this->code,
-                'prodName' => $this->name,
-                'prodPrice' => $this->price,
-                'prodQuantity' => $this->quantity,
-                'prodDescription' => $this->description,
-                'prodImage' => $this->image ? $this->image->store('images', 'public') : null,
-            ]
+                'code' => $this->code,
+                'name' => $this->name,
+                'price' => $this->price,
+                'puantity' => $this->quantity,
+                'description' => $this->description,
+                'image' => $imageurl,
+            ]       
         );
+
+    }
+
+    public function render() 
+    {
+        return view('livewire.create-product');
     }
 }

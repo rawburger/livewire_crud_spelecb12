@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Product;
 use Livewire\Component;
 
 class ShowProduct extends Component
