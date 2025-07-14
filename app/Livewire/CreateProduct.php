@@ -15,30 +15,37 @@ class CreateProduct extends Component
     public $price = 0.00;
     public $quantity = 0;
     public $description = '';
-    public $image = null;
+    public $image;
 
     public function save() {
+
         $validated = $this->validate([
             'code' => 'required|string|max:255|unique:products,code',
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
             'description' => 'required|string',
-            'image' => 'nullable|image|max:2048', // Max 2MB
+            'image' => 'nullable|image|max:2048',
         ]);
+        
+        $imageurl = null;
 
-        $imageurl = $this->image->store('images');
-
+        if ($this->image) {
+            $imageurl = $this->image->store('images', 'public');
+        }
+        
         Product::create(
             [
                 'code' => $this->code,
                 'name' => $this->name,
                 'price' => $this->price,
-                'puantity' => $this->quantity,
+                'quantity' => $this->quantity,
                 'description' => $this->description,
                 'image' => $imageurl,
             ]       
         );
+    session()->flash('success', 'Product created successfully.');
+    $this->redirect(route('livewire.index'), navigate: true);
 
     }
 

@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<x-layouts.app>
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
         <div class="card">
@@ -8,7 +7,7 @@
                     Product Information
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('liverwire.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                    <a href="{{ route('livewire.index') }}" wire:navigate class="btn btn-primary btn-sm">&larr; Back</a>
                 </div>
             </div>
             <div class="card-body">
@@ -44,11 +43,13 @@
                 </div>
                 <div class="row">
                     <div class="img" style="display: flex; justify-content: center">
-                    <img src="{{ $product->imageurl }}" alt="alt" style="width: 200px; height: 200px;">
+                        @if($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="alt" style="width: 200px; height: 200px;">
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+</x-layouts.app>

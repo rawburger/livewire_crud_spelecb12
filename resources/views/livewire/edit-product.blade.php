@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
         @session('success')
@@ -13,7 +11,7 @@
                     Edit Product
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('livewire.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                    <a href="{{ route('livewire.index') }}" wire:navigate class="btn btn-primary btn-sm">&larr; Back</a>
                 </div>
             </div>
             <div class="card-body">
@@ -23,7 +21,7 @@
                     <div class="mb-3 row">
                         <label for="code" class="col-md-4 col-form-label text-md-end text-start">Code</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" wire:model="code">
+                            <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" wire:model="code" readonly>
                             @error('code')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -61,7 +59,7 @@
                         <label for="description" class="col-md-4 col-form-label text-md-end text-start">Description</label>
                         <div class="col-md-6">
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" wire:model="description">
-                                {{ $product->description }}</textarea>
+                                </textarea>
                             @error('description')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -70,18 +68,17 @@
                     <div class="mb-3 row">
                         <label for="imageurl" class="col-md-4 col-form-label text-md-end text-start">Select a file to upload</label>
                         <div class="col-md-6">
-                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" wire:model="image">
-                            @error('imageurl')
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" wire:model="image" accept="image/*"/>
+                            @error('image')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update">
+                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary">
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-@endsection

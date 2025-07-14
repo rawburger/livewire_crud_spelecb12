@@ -1,17 +1,14 @@
-@extends('layouts.app')
-@section('content')
 <div class="row justify-content-center mt-3">
     <div class="col-md-12">
-        @session('success')
+        @if (session()->has('success'))
         <div class="alert alert-success" role="alert">
-            {{ $value }}
+            {{ session('success') }}
         </div>
-        @endsession
+        @endif
         </div>
-        <div class="card">
             <div class="card-header">Product List</div>
             <div class="card-body">
-                <a href="{{ route('livewire.create-product') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Product</a>
+                <a href="{{ route('livewire.create-product') }}" wire:navigate class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Product</a>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -32,13 +29,13 @@
                             <td>{{ $product->quantity }}</td>
                             <td>{{ $product->price }}</td>
                             <td>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a href="{{ route('livewire.show-product', $product->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
-                                    <a href="{{ route('livewire.edit-product', $product->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this product?');"><i class="bi bi-trash"></i> Delete</button>
-                                </form>
+                                <a href="{{ route('livewire.show-product', $product->id) }}" wire:navigate class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
+                                <a href="{{ route('livewire.edit-product', $product->id) }}" wire:navigate class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    wire:click="delete({{ $product->id }})"
+                                    onclick="return confirm('Do you want to delete this product?');">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
                             </td>
                         </tr>
                         @empty
@@ -55,4 +52,3 @@
         </div>
     </div>
 </div>
-@endsection
