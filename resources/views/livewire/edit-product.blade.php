@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form wire:submit="save" enctype="multipart/form-data">
+                <form wire:submit.prevent="save" enctype="multipart/form-data">
                     @csrf
                     @method("PUT")
                     <div class="mb-3 row">

@@ -1,5 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
+    
     <div class="card p-4" style="min-width: 350px; max-width: 400px; width: 100%;">
+        <h1 class="text-center mb-4" style="color:blue;">LIVEWIRE CRUD</h1>
         <h3 class="text-center mb-4">Login</h3>
         
         <form wire:submit.prevent="authenticate">

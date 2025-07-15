@@ -7,8 +7,9 @@
             {{ $value }}
         </div>
         @endsession
-    <form wire:submit="save" class="bg-white card p-4 rounded" style="width:100%; max-width:400px;">
+    <form wire:submit.prevent="save" class="bg-white card p-4 rounded" style="width:100%; max-width:400px;">
       @csrf
+      <h1 class="text-center mb-4" style="color:blue;">LIVEWIRE CRUD</h1>
       <h3 class="mb-3 text-center">Register</h3>
 
       <div class="form-group mb-3">
